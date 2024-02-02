@@ -1,16 +1,28 @@
-# tick_tock
+# TickTock - Clock To Do App
 
-A new Flutter project.
+This is a flutter Clock-To-Do app, created to provide customization and more freedom when it comes to To-Do List, and the clock home screen widget
 
-## Getting Started
+## Language used
 
-This project is a starting point for a Flutter application.
+<img alt="Flutter" src="https://img.shields.io/badge/Flutter%20-%2302569B.svg?&style=for-the-badge&logo=Flutter&logoColor=white" />
 
-A few resources to get you started if this is your first Flutter project:
+<img alt="Dart" src="https://img.shields.io/badge/dart-%230175C2.svg?&style=for-the-badge&logo=dart&logoColor=white"/>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Installation
+```
+git clone
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Open an Android Emulator
+
+```
+flutter run
+```
+
+## Functions
+
+- On development
+
+## Screenshots
+
+- On development
