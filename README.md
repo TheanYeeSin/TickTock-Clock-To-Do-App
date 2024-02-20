@@ -8,7 +8,11 @@ This is a flutter Clock-To-Do app, created to provide customization and more fre
 
 <img alt="Dart" src="https://img.shields.io/badge/dart-%230175C2.svg?&style=for-the-badge&logo=dart&logoColor=white"/>
 
-## Installation
+## Installation for Personal Use
+
+- On development
+
+## Installation for Development
 ```
 git clone
 ```
