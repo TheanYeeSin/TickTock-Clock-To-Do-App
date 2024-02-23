@@ -32,4 +32,36 @@ class ToDoItem {
     this.categoryId,
     this.description,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'reminderTime': reminderTime.millisecondsSinceEpoch,
+      'repeatOption': repeatOption.value,
+      'startTime': startTime?.millisecondsSinceEpoch,
+      'endTime': endTime?.millisecondsSinceEpoch,
+      'isImportant': isImportant ? 1 : 0,
+      'categoryId': categoryId,
+      'description': description
+    };
+  }
+
+  factory ToDoItem.fromMap(Map<String, dynamic> map) {
+    return ToDoItem(
+      id: map['id'],
+      title: map['title'],
+      reminderTime: DateTime.fromMillisecondsSinceEpoch(map['reminderTime']),
+      repeatOption: RepeatOption(map['repeatOption']),
+      startTime: map['startTime'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['startTime'])
+          : null,
+      endTime: map['endTime'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['endTime'])
+          : null,
+      isImportant: map['isImportant'] == 1,
+      categoryId: map['categoryId'],
+      description: map['description'],
+    );
+  }
 }
