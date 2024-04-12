@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:tick_tock/constants/database.dart';
+import 'package:tick_tock/utils/database.dart';
 import 'package:tick_tock/models/category.dart';
 import 'package:tick_tock/models/to_do_item.dart';
 
@@ -17,6 +17,7 @@ class DatabaseService {
         await db.execute('''
           CREATE TABLE $categoryTableName(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            icon TEXT NOT NULL,
             name TEXT NOT NULL,
             color TEXT NOT NULL,
           )
@@ -33,6 +34,7 @@ class DatabaseService {
             isImportant INTEGER NOT NULL,
             categoryId INTEGER,
             description TEXT
+            isCompleted INTEGER NOT NULL,
             FOREIGN KEY (categoryId) REFERENCES Categories(id)
           )
         ''');
@@ -43,17 +45,23 @@ class DatabaseService {
   //ADD CATEGORY TO DATABASE
   static Future<int> addCategory(Category category) async {
     final Database db = await _getDatabase();
-    return await db.insert(categoryTableName, category.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert(
+      categoryTableName,
+      category.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   //UPDATE CATEGORY WITH THE SAME ID
   static Future<int> updateCategory(Category category) async {
     final Database db = await _getDatabase();
-    return await db.update(categoryTableName, category.toMap(),
-        where: 'id = ?',
-        whereArgs: [category.id],
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.update(
+      categoryTableName,
+      category.toMap(),
+      where: 'id = ?',
+      whereArgs: [category.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   //DELETE CATEGORY WITH THE SAME ID
@@ -83,17 +91,23 @@ class DatabaseService {
   //ADD TODOITEM TO DATABASE
   static Future<int> addToDoItem(ToDoItem toDoItem) async {
     final Database db = await _getDatabase();
-    return await db.insert(toDoItemTableName, toDoItem.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert(
+      toDoItemTableName,
+      toDoItem.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   //UPDATE TODOITEM WITH THE SAME ID
   static Future<int> updateToDoItem(ToDoItem toDoItem) async {
     final db = await _getDatabase();
-    return await db.update(toDoItemTableName, toDoItem.toMap(),
-        where: 'id = ?',
-        whereArgs: [toDoItem.id],
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.update(
+      toDoItemTableName,
+      toDoItem.toMap(),
+      where: 'id = ?',
+      whereArgs: [toDoItem.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   //DELETE TODOITEM WITH THE SAME ID
@@ -104,8 +118,9 @@ class DatabaseService {
   }
 
   //GET ALL THE AVAILABLE TODOITEMS
-  static Future<List<ToDoItem>?> getAllToDoItems(
-      {String orderBy = 'title ASC'}) async {
+  static Future<List<ToDoItem>?> getAllToDoItems({
+    String orderBy = 'title ASC',
+  }) async {
     final db = await _getDatabase();
 
     final List<Map<String, dynamic>> maps =

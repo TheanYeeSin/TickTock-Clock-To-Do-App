@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/constants/color.dart';
+import 'package:tick_tock/utils/color.dart';
 
-class ToDoItem extends StatelessWidget {
+class ToDoItemTile extends StatelessWidget {
   final Color iconColor;
   final String toDoTitle;
-  const ToDoItem({super.key, required this.iconColor, required this.toDoTitle});
+  const ToDoItemTile({
+    super.key,
+    required this.iconColor,
+    required this.toDoTitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +27,14 @@ class ToDoItem extends StatelessWidget {
           Icons.circle_outlined,
           color: iconColor,
         ),
-        title: Text(toDoTitle,
-            style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                decoration: TextDecoration.lineThrough)),
+        title: Text(
+          toDoTitle,
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.black,
+            decoration: TextDecoration.lineThrough,
+          ),
+        ),
       ),
     );
   }
