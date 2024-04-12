@@ -20,6 +20,7 @@ class ToDoItem {
   bool isImportant;
   int? categoryId;
   String? description;
+  bool isCompleted;
 
   ToDoItem({
     this.id,
@@ -31,6 +32,7 @@ class ToDoItem {
     this.isImportant = false,
     this.categoryId,
     this.description,
+    this.isCompleted = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -43,7 +45,8 @@ class ToDoItem {
       'endTime': endTime?.millisecondsSinceEpoch,
       'isImportant': isImportant ? 1 : 0,
       'categoryId': categoryId,
-      'description': description
+      'description': description,
+      'isCompleted': isCompleted ? 1 : 0,
     };
   }
 
@@ -62,6 +65,7 @@ class ToDoItem {
       isImportant: map['isImportant'] == 1,
       categoryId: map['categoryId'],
       description: map['description'],
+      isCompleted: map['isCompleted'] == 1,
     );
   }
 }

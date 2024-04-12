@@ -9,4 +9,5 @@ const Color toDoPurple = Colors.purple;
 const Color toDoTileColor = Colors.white;
 
 const Color appBarIconColor = Colors.black;
+const Color borderColor = Colors.black;
 const Color backgroundColor = Color(0xFFEEEFF5);
