@@ -19,7 +19,7 @@ class DatabaseService {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             icon TEXT NOT NULL,
             name TEXT NOT NULL,
-            color TEXT NOT NULL,
+            color TEXT NOT NULL
           )
         ''');
         //TODOITEMS
@@ -29,12 +29,13 @@ class DatabaseService {
             title TEXT NOT NULL,
             reminderTime INTEGER NOT NULL,
             repeatOption TEXT,
-            startTime INTEGER,
-            endTime INTEGER,
+            startTime TEXT,
+            endTime TEXT,
             isImportant INTEGER NOT NULL,
             categoryId INTEGER,
-            description TEXT
+            description TEXT,
             isCompleted INTEGER NOT NULL,
+            createdTime TEXT NOT NULL,
             FOREIGN KEY (categoryId) REFERENCES Categories(id)
           )
         ''');

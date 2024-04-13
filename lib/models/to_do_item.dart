@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class RepeatOption {
   String value;
 
@@ -15,12 +17,13 @@ class ToDoItem {
   String title;
   DateTime reminderTime;
   RepeatOption repeatOption;
-  DateTime? startTime;
-  DateTime? endTime;
+  TimeOfDay? startTime;
+  TimeOfDay? endTime;
   bool isImportant;
   int? categoryId;
   String? description;
   bool isCompleted;
+  final DateTime createdTime;
 
   ToDoItem({
     this.id,
@@ -33,20 +36,23 @@ class ToDoItem {
     this.categoryId,
     this.description,
     this.isCompleted = false,
+    required this.createdTime,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
-      'reminderTime': reminderTime.millisecondsSinceEpoch,
+      'reminderTime': reminderTime.toIso8601String(),
       'repeatOption': repeatOption.value,
-      'startTime': startTime?.millisecondsSinceEpoch,
-      'endTime': endTime?.millisecondsSinceEpoch,
+      'startTime':
+          startTime != null ? '${startTime!.hour}:${startTime!.minute}' : null,
+      'endTime': endTime != null ? '${endTime!.hour}:${endTime!.minute}' : null,
       'isImportant': isImportant ? 1 : 0,
       'categoryId': categoryId,
       'description': description,
       'isCompleted': isCompleted ? 1 : 0,
+      'createdTime': createdTime.toIso8601String(),
     };
   }
 
@@ -54,18 +60,21 @@ class ToDoItem {
     return ToDoItem(
       id: map['id'],
       title: map['title'],
-      reminderTime: DateTime.fromMillisecondsSinceEpoch(map['reminderTime']),
+      reminderTime: DateTime.parse(map['reminderTime']),
       repeatOption: RepeatOption(map['repeatOption']),
-      startTime: map['startTime'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['startTime'])
-          : null,
-      endTime: map['endTime'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['endTime'])
-          : null,
+      startTime:
+          map['startTime'] != null ? _parseTimeOfDay(map['startTime']) : null,
+      endTime: map['endTime'] != null ? _parseTimeOfDay(map['endTime']) : null,
       isImportant: map['isImportant'] == 1,
       categoryId: map['categoryId'],
       description: map['description'],
       isCompleted: map['isCompleted'] == 1,
+      createdTime: DateTime.parse(map['createdTime']),
     );
+  }
+
+  static TimeOfDay _parseTimeOfDay(String timeString) {
+    final parts = timeString.split(':');
+    return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
   }
 }
