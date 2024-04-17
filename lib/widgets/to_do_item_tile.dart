@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/models/to_do_item.dart';
 import 'package:tick_tock/screens/to_do_manage_screen.dart';
 import 'package:tick_tock/utils/color.dart';
@@ -43,6 +44,56 @@ class ToDoItemTile extends StatelessWidget {
             color: Colors.black,
             decoration: TextDecoration.lineThrough,
           ),
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete, color: Colors.red),
+          onPressed: () async {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Center(
+                    child: Text(
+                      "Delete To-do",
+                    ),
+                  ),
+                  content: const Text(
+                    "Are you sure you want to delete this to-do?",
+                  ),
+                  actions: [
+                    ButtonBar(
+                      alignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "NO",
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await DatabaseService.deleteToDoItem(
+                              toDoItem,
+                            );
+                            // ignore: use_build_context_synchronously
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "YES",
+                            style: TextStyle(
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
     );
