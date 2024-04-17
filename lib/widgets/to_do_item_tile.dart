@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tick_tock/models/to_do_item.dart';
+import 'package:tick_tock/screens/to_do_manage_screen.dart';
 import 'package:tick_tock/utils/color.dart';
 
 class ToDoItemTile extends StatelessWidget {
   final Color iconColor;
-  final String toDoTitle;
+  final ToDoItem toDoItem;
   const ToDoItemTile({
     super.key,
     required this.iconColor,
-    required this.toDoTitle,
+    required this.toDoItem,
   });
 
   @override
@@ -15,8 +17,15 @@ class ToDoItemTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
-        onTap: () {
-          //TODO: View To Do
+        onTap: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ToDoManageScreen(
+                toDoItem: toDoItem,
+              ),
+            ),
+          );
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -28,7 +37,7 @@ class ToDoItemTile extends StatelessWidget {
           color: iconColor,
         ),
         title: Text(
-          toDoTitle,
+          toDoItem.title,
           style: const TextStyle(
             fontSize: 16,
             color: Colors.black,

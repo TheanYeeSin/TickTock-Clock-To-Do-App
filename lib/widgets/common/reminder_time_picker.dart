@@ -8,20 +8,21 @@ import 'package:tick_tock/widgets/common/custom_divider.dart';
 class ReminderTimePicker extends StatelessWidget {
   final String labelText;
   final DateTime? initialDateTime;
-  final RepeatOption? initialRepeatOption;
+  final RepeatOption initialRepeatOption;
   final EdgeInsets? margin;
   final ValueChanged<DateTime> onDateTimeChanged;
   final ValueChanged<RepeatOption> onRepeatOptionChanged;
+  final bool readOnly;
 
-  const ReminderTimePicker({
-    super.key,
-    required this.labelText,
-    this.initialDateTime,
-    this.initialRepeatOption,
-    this.margin,
-    required this.onDateTimeChanged,
-    required this.onRepeatOptionChanged,
-  });
+  const ReminderTimePicker(
+      {super.key,
+      required this.labelText,
+      this.initialDateTime,
+      required this.initialRepeatOption,
+      this.margin,
+      required this.onDateTimeChanged,
+      required this.onRepeatOptionChanged,
+      required this.readOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,18 @@ class ReminderTimePicker extends StatelessWidget {
               elevation: 0,
               padding: const EdgeInsets.all(16.0),
             ),
+            onPressed: !readOnly
+                ? () async {
+                    final DateTime? pickedDateTime = await pickDateTime(
+                      context: context,
+                      initialDateTime: initialDateTime,
+                      initialEntryMode: TimePickerEntryMode.dial,
+                    );
+                    if (pickedDateTime != null) {
+                      onDateTimeChanged(pickedDateTime);
+                    }
+                  }
+                : null,
             child: Row(
               children: [
                 const Icon(Icons.access_time),
@@ -51,16 +64,6 @@ class ReminderTimePicker extends StatelessWidget {
                 ),
               ],
             ),
-            onPressed: () async {
-              final DateTime? pickedDateTime = await pickDateTime(
-                context: context,
-                initialDateTime: initialDateTime,
-                initialEntryMode: TimePickerEntryMode.dial,
-              );
-              if (pickedDateTime != null) {
-                onDateTimeChanged(pickedDateTime);
-              }
-            },
           ),
           if (initialDateTime != null)
             Column(
@@ -85,12 +88,13 @@ class ReminderTimePicker extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: DropdownButton<RepeatOption>(
-                            value: initialRepeatOption ?? RepeatOption.never,
-                            onChanged: (newValue) {
-                              if (newValue != null) {
-                                onRepeatOptionChanged(newValue);
-                              }
-                            },
+                            onChanged: !readOnly
+                                ? (newValue) {
+                                    if (newValue != null) {
+                                      onRepeatOptionChanged(newValue);
+                                    }
+                                  }
+                                : null,
                             items: [
                               RepeatOption.never,
                               RepeatOption.everyday,
@@ -103,6 +107,7 @@ class ReminderTimePicker extends StatelessWidget {
                                 child: Text(option.value),
                               );
                             }).toList(),
+                            value: initialRepeatOption,
                           ),
                         ),
                       ),

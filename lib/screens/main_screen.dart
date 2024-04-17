@@ -1,6 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tick_tock/database/database_service.dart';
+import 'package:tick_tock/models/to_do_item.dart';
 import 'package:tick_tock/utils/color.dart';
 import 'package:tick_tock/screens/to_do_manage_screen.dart';
+import 'package:tick_tock/widgets/common/custom_divider.dart';
 import 'package:tick_tock/widgets/to_do_item_tile.dart';
 
 class MainScreen extends StatefulWidget {
@@ -11,6 +16,10 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  Future<List<ToDoItem>?> _getAllToDoItems() {
+    return DatabaseService.getAllToDoItems();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,37 +45,55 @@ class _MainScreenState extends State<MainScreen> {
           vertical: 15,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //TODO: Clock UI
-            Expanded(
-              child: ListView(
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 20, bottom: 20),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "All to-dos",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text("9999 to-dos"),
-                      ],
+                  Text(
+                    "All to-dos",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20, bottom: 20),
-                    child: const Text("TOMORROW"),
-                  ),
-                  const ToDoItemTile(iconColor: toDoGreen, toDoTitle: "Test1"),
-                  const ToDoItemTile(iconColor: toDoRed, toDoTitle: "Test2"),
-                  const ToDoItemTile(iconColor: toDoBlue, toDoTitle: "Test3"),
-                  const ToDoItemTile(iconColor: toDoYellow, toDoTitle: "Test4"),
-                  const ToDoItemTile(iconColor: toDoPurple, toDoTitle: "Test5"),
+                  Text("9999 to-dos"),
+                  SizedBox(height: 20),
+                  Text("TOMORROW"),
                 ],
+              ),
+            ),
+
+            Expanded(
+              child: FutureBuilder<List<ToDoItem>?>(
+                future: _getAllToDoItems(),
+                builder: (context, AsyncSnapshot<List<ToDoItem>?> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        'Something went wrong! Error: ${snapshot.error}',
+                      ),
+                    );
+                  } else if (snapshot.hasData && snapshot.data != null) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return ToDoItemTile(
+                          iconColor: toDoGreen,
+                          toDoItem: snapshot.data![index],
+                        );
+                      },
+                      itemCount: snapshot.data!.length,
+                    );
+                  }
+                  return const Center(
+                    child: Text("No To Do Items"),
+                  );
+                },
               ),
             ),
           ],
