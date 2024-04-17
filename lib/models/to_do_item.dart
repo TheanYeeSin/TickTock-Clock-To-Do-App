@@ -10,6 +10,13 @@ class RepeatOption {
   static RepeatOption everyWeek = RepeatOption("Every Week");
   static RepeatOption everyMonth = RepeatOption("Every Month");
   static RepeatOption everyYear = RepeatOption("Every Year");
+
+  @override
+  bool operator ==(Object other) =>
+      other is RepeatOption && other.value == value;
+
+  @override
+  int get hashCode => value.hashCode;
 }
 
 class ToDoItem {

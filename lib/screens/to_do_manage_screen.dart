@@ -16,7 +16,7 @@ class _ToDoManageScreenState extends State<ToDoManageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.toDoItem == null ? "Add To Do" : "Edit To Do"),
+        title: Text(widget.toDoItem == null ? "Add To Do" : "To Do"),
       ),
       body: ToDoForm(toDoItem: widget.toDoItem),
     );

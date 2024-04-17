@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/models/to_do_item.dart';
 import 'package:tick_tock/utils/validator.dart';
 import 'package:tick_tock/widgets/common/custom_boolean_field.dart';
@@ -20,20 +20,40 @@ class _ToDoFormState extends State<ToDoForm> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  late ValueNotifier<bool?> _isImportantController;
-  late ValueNotifier<DateTime?> _reminderTimeController;
-  late ValueNotifier<RepeatOption?> _repeatOptionController;
+  late ValueNotifier<bool> _isImportantController;
+  late ValueNotifier<DateTime> _reminderTimeController;
+  late ValueNotifier<RepeatOption> _repeatOptionController;
   late ValueNotifier<TimeOfDay?> _startTimeController;
   late ValueNotifier<TimeOfDay?> _endTimeController;
+  bool isEditMode = true;
 
   @override
   void initState() {
     super.initState();
-    _isImportantController = ValueNotifier<bool?>(false);
-    _reminderTimeController = ValueNotifier<DateTime?>(null);
-    _startTimeController = ValueNotifier<TimeOfDay?>(null);
-    _endTimeController = ValueNotifier<TimeOfDay?>(null);
-    _repeatOptionController = ValueNotifier<RepeatOption?>(RepeatOption.never);
+    _loadToDoData();
+    if (widget.toDoItem != null) {
+      isEditMode = false;
+    }
+  }
+
+  void _toggleEditMode() {
+    setState(() {
+      isEditMode = !isEditMode;
+    });
+  }
+
+  void _loadToDoData() {
+    _titleController.text = widget.toDoItem?.title ?? "";
+    _descriptionController.text = widget.toDoItem?.description ?? "";
+    _isImportantController =
+        ValueNotifier<bool>(widget.toDoItem?.isImportant ?? false);
+    _reminderTimeController = ValueNotifier<DateTime>(
+        widget.toDoItem?.reminderTime ?? DateTime.now());
+    _repeatOptionController = ValueNotifier<RepeatOption>(
+        widget.toDoItem?.repeatOption ?? RepeatOption.never);
+    _startTimeController =
+        ValueNotifier<TimeOfDay?>(widget.toDoItem?.startTime);
+    _endTimeController = ValueNotifier<TimeOfDay?>(widget.toDoItem?.endTime);
   }
 
   bool _isTimeRangeValid() {
@@ -88,14 +108,15 @@ class _ToDoFormState extends State<ToDoForm> {
                 prefixIcon: const Icon(Icons.document_scanner),
                 validator: requiredString,
                 margin: const EdgeInsets.only(bottom: 16),
-                readOnly: false,
+                readOnly: !isEditMode,
               ),
-              //REMINDER DATETIME PICKER
+              // REMINDER DATETIME PICKER
               ReminderTimePicker(
                 labelText: "Reminder",
                 initialDateTime: _reminderTimeController.value,
                 initialRepeatOption: _repeatOptionController.value,
                 margin: const EdgeInsets.only(bottom: 16),
+                readOnly: !isEditMode,
                 onDateTimeChanged: (newTime) {
                   setState(() {
                     _reminderTimeController.value = newTime;
@@ -116,6 +137,7 @@ class _ToDoFormState extends State<ToDoForm> {
                       margin: const EdgeInsets.only(bottom: 16),
                       initialTime: _startTimeController.value,
                       icon: const Icon(Icons.start),
+                      readOnly: !isEditMode,
                       onTimeChanged: (newTime) {
                         setState(() {
                           _startTimeController.value = newTime;
@@ -134,6 +156,7 @@ class _ToDoFormState extends State<ToDoForm> {
                       margin: const EdgeInsets.only(bottom: 16),
                       initialTime: _endTimeController.value,
                       icon: const Icon(Icons.stop),
+                      readOnly: !isEditMode,
                       onTimeChanged: (newTime) {
                         setState(() {
                           _endTimeController.value = newTime;
@@ -150,11 +173,13 @@ class _ToDoFormState extends State<ToDoForm> {
               ),
               //IS IMPORTANT
               CustomBooleanField(
+                initialBool: _isImportantController.value,
                 labelText: "Mark as Important",
                 prefixIcon: const Icon(
                   Icons.priority_high_rounded,
                   color: Colors.red,
                 ),
+                readOnly: !isEditMode,
                 margin: const EdgeInsets.only(bottom: 16),
                 onChanged: (newBool) {
                   setState(() {
@@ -170,15 +195,51 @@ class _ToDoFormState extends State<ToDoForm> {
                 prefixIcon: const Icon(Icons.description),
                 maxLines: 3,
                 margin: const EdgeInsets.only(bottom: 16),
-                readOnly: false,
+                readOnly: !isEditMode,
               ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        child: const Icon(Icons.check),
+        onPressed: isEditMode
+            ? () async {
+                if (_formKey.currentState!.validate()) {
+                  final title = _titleController.value.text.trim();
+                  final description = _descriptionController.value.text.trim();
+                  final reminderTime = _reminderTimeController.value;
+                  final repeatOption = _repeatOptionController.value;
+                  final startTime = _startTimeController.value;
+                  final endTime = _endTimeController.value;
+                  final createdTime =
+                      widget.toDoItem?.createdTime ?? DateTime.now();
+                  final isCompleted = widget.toDoItem?.isCompleted ?? false;
+                  final isImportant = _isImportantController.value;
+
+                  final ToDoItem newToDoItem = ToDoItem(
+                    id: widget.toDoItem?.id,
+                    title: title,
+                    reminderTime: reminderTime,
+                    repeatOption: repeatOption,
+                    startTime: startTime,
+                    endTime: endTime,
+                    createdTime: createdTime,
+                    isCompleted: isCompleted,
+                    isImportant: isImportant,
+                    description: description,
+                  );
+
+                  if (widget.toDoItem == null) {
+                    await DatabaseService.addToDoItem(newToDoItem);
+                  } else {
+                    await DatabaseService.updateToDoItem(newToDoItem);
+                  }
+                  // ignore: use_build_context_synchronously
+                  Navigator.pop(context);
+                }
+              }
+            : _toggleEditMode,
+        child: Icon(isEditMode ? Icons.check : Icons.edit),
       ),
     );
   }

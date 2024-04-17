@@ -7,6 +7,7 @@ class CustomTimePicker extends StatelessWidget {
   final TimeOfDay? initialTime;
   final ValueChanged<TimeOfDay> onTimeChanged;
   final Widget icon;
+  final bool readOnly;
 
   const CustomTimePicker({
     super.key,
@@ -15,6 +16,7 @@ class CustomTimePicker extends StatelessWidget {
     this.initialTime,
     required this.onTimeChanged,
     required this.icon,
+    required this.readOnly,
   });
 
   @override
@@ -31,6 +33,18 @@ class CustomTimePicker extends StatelessWidget {
           elevation: 0,
           padding: const EdgeInsets.all(16.0),
         ),
+        onPressed: !readOnly
+            ? () async {
+                final TimeOfDay? pickedTime = await showTimePicker(
+                  context: context,
+                  initialTime: initialTime ?? TimeOfDay.now(),
+                  initialEntryMode: TimePickerEntryMode.dial,
+                );
+                if (pickedTime != null) {
+                  onTimeChanged(pickedTime);
+                }
+              }
+            : null,
         child: Row(
           children: [
             icon,
@@ -43,16 +57,6 @@ class CustomTimePicker extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () async {
-          final TimeOfDay? pickedTime = await showTimePicker(
-            context: context,
-            initialTime: initialTime ?? TimeOfDay.now(),
-            initialEntryMode: TimePickerEntryMode.dial,
-          );
-          if (pickedTime != null) {
-            onTimeChanged(pickedTime);
-          }
-        },
       ),
     );
   }

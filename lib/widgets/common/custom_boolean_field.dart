@@ -7,6 +7,7 @@ class CustomBooleanField extends StatefulWidget {
   final Widget prefixIcon;
   final EdgeInsets? margin;
   final ValueChanged<bool> onChanged;
+  final bool readOnly;
 
   const CustomBooleanField({
     super.key,
@@ -15,6 +16,7 @@ class CustomBooleanField extends StatefulWidget {
     required this.prefixIcon,
     this.margin,
     required this.onChanged,
+    required this.readOnly,
   });
 
   @override
@@ -52,12 +54,14 @@ class _CustomBooleanFieldState extends State<CustomBooleanField> {
               alignment: Alignment.centerRight,
               child: Switch(
                 value: _value,
-                onChanged: (newValue) {
-                  setState(() {
-                    _value = newValue;
-                  });
-                  widget.onChanged(newValue);
-                },
+                onChanged: !widget.readOnly
+                    ? (newValue) {
+                        setState(() {
+                          _value = newValue;
+                        });
+                        widget.onChanged(newValue);
+                      }
+                    : null,
               ),
             ),
           ),
