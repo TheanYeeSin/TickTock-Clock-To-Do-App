@@ -7,10 +7,12 @@ import 'package:tick_tock/utils/color.dart';
 class ToDoItemTile extends StatelessWidget {
   final Color iconColor;
   final ToDoItem toDoItem;
+  final VoidCallback onDelete;
   const ToDoItemTile({
     super.key,
     required this.iconColor,
     required this.toDoItem,
+    required this.onDelete,
   });
 
   @override
@@ -47,53 +49,7 @@ class ToDoItemTile extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: () async {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Center(
-                    child: Text(
-                      "Delete To-do",
-                    ),
-                  ),
-                  content: const Text(
-                    "Are you sure you want to delete this to-do?",
-                  ),
-                  actions: [
-                    ButtonBar(
-                      alignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "NO",
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await DatabaseService.deleteToDoItem(
-                              toDoItem,
-                            );
-                            // ignore: use_build_context_synchronously
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "YES",
-                            style: TextStyle(
-                              color: Colors.redAccent,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-            );
-          },
+          onPressed: onDelete,
         ),
       ),
     );

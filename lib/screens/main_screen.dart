@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/models/to_do_item.dart';
 import 'package:tick_tock/utils/color.dart';
 import 'package:tick_tock/screens/to_do_manage_screen.dart';
-import 'package:tick_tock/widgets/common/custom_divider.dart';
 import 'package:tick_tock/widgets/to_do_item_tile.dart';
 
 class MainScreen extends StatefulWidget {
@@ -85,6 +82,55 @@ class _MainScreenState extends State<MainScreen> {
                         return ToDoItemTile(
                           iconColor: toDoGreen,
                           toDoItem: snapshot.data![index],
+                          onDelete: () async {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Center(
+                                    child: Text(
+                                      "Delete To-do",
+                                    ),
+                                  ),
+                                  content: const Text(
+                                    "Are you sure you want to delete this to-do?",
+                                  ),
+                                  actions: [
+                                    ButtonBar(
+                                      alignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            "NO",
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            await DatabaseService
+                                                .deleteToDoItem(
+                                              snapshot.data![index],
+                                            );
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.pop(context);
+                                            setState(() {});
+                                          },
+                                          child: const Text(
+                                            "YES",
+                                            style: TextStyle(
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         );
                       },
                       itemCount: snapshot.data!.length,
@@ -107,6 +153,7 @@ class _MainScreenState extends State<MainScreen> {
               builder: (context) => const ToDoManageScreen(),
             ),
           );
+          setState(() {});
         },
         child: const Icon(Icons.add),
       ),
