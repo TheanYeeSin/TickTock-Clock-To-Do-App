@@ -4,7 +4,7 @@ import 'package:tick_tock/models/to_do_item.dart';
 import 'package:tick_tock/screens/to_do_manage_screen.dart';
 import 'package:tick_tock/utils/color.dart';
 
-class ToDoItemTile extends StatelessWidget {
+class ToDoItemTile extends StatefulWidget {
   final Color iconColor;
   final ToDoItem toDoItem;
   final VoidCallback onDelete;
@@ -16,6 +16,11 @@ class ToDoItemTile extends StatelessWidget {
   });
 
   @override
+  State<ToDoItemTile> createState() => _ToDoItemTileState();
+}
+
+class _ToDoItemTileState extends State<ToDoItemTile> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -25,7 +30,7 @@ class ToDoItemTile extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ToDoManageScreen(
-                toDoItem: toDoItem,
+                toDoItem: widget.toDoItem,
               ),
             ),
           );
@@ -35,12 +40,20 @@ class ToDoItemTile extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: toDoTileColor,
-        leading: Icon(
-          Icons.circle_outlined,
-          color: iconColor,
+        leading: Checkbox(
+          value: widget.toDoItem.isCompleted,
+          onChanged: (value) async {
+            await DatabaseService.updateToDoItemComplete(
+              widget.toDoItem.id!,
+              value! ? 1 : 0,
+            );
+            setState(() {
+              widget.toDoItem.isCompleted = value;
+            });
+          },
         ),
         title: Text(
-          toDoItem.title,
+          widget.toDoItem.title,
           style: const TextStyle(
             fontSize: 16,
             color: Colors.black,
@@ -49,7 +62,7 @@ class ToDoItemTile extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: const Icon(Icons.delete, color: Colors.red),
-          onPressed: onDelete,
+          onPressed: widget.onDelete,
         ),
       ),
     );
