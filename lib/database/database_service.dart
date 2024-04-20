@@ -148,4 +148,18 @@ class DatabaseService {
       throw Exception('ID $toDoItemId not found');
     }
   }
+
+  //UPDATE COMPLETE FOR TODOITEM
+  static Future<int> updateToDoItemComplete(
+    int toDoItemId,
+    int isCompleted,
+  ) async {
+    final db = await _getDatabase();
+    return await db.update(
+      toDoItemTableName,
+      {'isCompleted': isCompleted},
+      where: 'id=?',
+      whereArgs: [toDoItemId],
+    );
+  }
 }
