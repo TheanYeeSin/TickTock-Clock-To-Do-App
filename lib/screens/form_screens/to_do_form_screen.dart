@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/models/to_do_item.dart';
-import 'package:tick_tock/widgets/to_do_form.dart';
+import 'package:tick_tock/widgets/form/to_do_form.dart';
 
-class ToDoManageScreen extends StatefulWidget {
+class ToDoFormScreen extends StatefulWidget {
   final ToDoItem? toDoItem;
 
-  const ToDoManageScreen({super.key, this.toDoItem});
+  const ToDoFormScreen({super.key, this.toDoItem});
 
   @override
-  State<ToDoManageScreen> createState() => _ToDoManageScreenState();
+  State<ToDoFormScreen> createState() => _ToDoFormScreenState();
 }
 
-class _ToDoManageScreenState extends State<ToDoManageScreen> {
+class _ToDoFormScreenState extends State<ToDoFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

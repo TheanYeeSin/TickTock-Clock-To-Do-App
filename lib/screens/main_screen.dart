@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/models/to_do_item.dart';
+import 'package:tick_tock/screens/category_settings_screen.dart';
 import 'package:tick_tock/utils/color.dart';
-import 'package:tick_tock/screens/to_do_manage_screen.dart';
 import 'package:tick_tock/widgets/to_do_item_tile.dart';
 
 class MainScreen extends StatefulWidget {
@@ -150,7 +150,7 @@ class _MainScreenState extends State<MainScreen> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ToDoManageScreen(),
+              builder: (context) => const CategorySettingsScreen(),
             ),
           );
           setState(() {});

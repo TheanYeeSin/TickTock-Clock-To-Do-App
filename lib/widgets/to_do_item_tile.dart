@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/models/to_do_item.dart';
-import 'package:tick_tock/screens/to_do_manage_screen.dart';
+import 'package:tick_tock/screens/form_screens/to_do_form_screen.dart';
 import 'package:tick_tock/utils/color.dart';
 
 class ToDoItemTile extends StatefulWidget {
@@ -29,7 +29,7 @@ class _ToDoItemTileState extends State<ToDoItemTile> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ToDoManageScreen(
+              builder: (context) => ToDoFormScreen(
                 toDoItem: widget.toDoItem,
               ),
             ),
