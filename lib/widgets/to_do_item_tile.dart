@@ -22,7 +22,8 @@ class ToDoItemTile extends StatefulWidget {
 class _ToDoItemTileState extends State<ToDoItemTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () async {
