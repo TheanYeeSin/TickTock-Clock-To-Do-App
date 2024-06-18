@@ -1,4 +1,4 @@
-import 'package:tick_tock/widgets/form/category_form.dart';
+import 'package:tick_tock/widgets/common/form/category_form.dart';
 import 'package:flutter/material.dart';
 import 'package:tick_tock/models/category.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/models/to_do_item.dart';
-import 'package:tick_tock/widgets/form/to_do_form.dart';
+import 'package:tick_tock/widgets/common/form/to_do_form.dart';
 
 class ToDoFormScreen extends StatefulWidget {
   final ToDoItem? toDoItem;
