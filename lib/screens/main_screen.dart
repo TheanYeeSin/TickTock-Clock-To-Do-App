@@ -3,7 +3,10 @@ import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/models/to_do_item.dart';
 import 'package:tick_tock/screens/category_settings_screen.dart';
 import 'package:tick_tock/utils/color.dart';
+import 'package:tick_tock/utils/time.dart';
+import 'package:tick_tock/widgets/clock/clock.dart';
 import 'package:tick_tock/widgets/to_do_item_tile.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -44,7 +47,56 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //TODO: Clock UI
+            FutureBuilder<List<ToDoItem>?>(
+              future: _getAllToDoItems(),
+              builder: (context, AsyncSnapshot<List<ToDoItem>?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      'Something went wrong! Error: ${snapshot.error}',
+                    ),
+                  );
+                } else if (snapshot.hasData && snapshot.data != null) {
+                  return TimerBuilder.periodic(
+                    const Duration(seconds: 1),
+                    builder: (context) {
+                      var currentTime = DateTime.now();
+                      String second = currentTime.second < 10
+                          ? "0${currentTime.second}"
+                          : "${currentTime.second}";
+                      String minute = currentTime.minute < 10
+                          ? "0${currentTime.minute}"
+                          : "${currentTime.minute}";
+                      String hour = currentTime.hour < 10
+                          ? "0${currentTime.hour}"
+                          : "${currentTime.hour}";
+                      return Column(
+                        children: [
+                          Center(
+                            child: Clock(
+                              time: TimeModel(
+                                currentTime.hour,
+                                currentTime.minute,
+                                currentTime.second,
+                              ),
+                              toDoItems: snapshot.data,
+                            ),
+                          ),
+                          Center(
+                            child: Text("$hour:$minute:$second"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+                return const Center(
+                  child: Text("No To Do Items"),
+                );
+              },
+            ),
             Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: const Column(
@@ -63,7 +115,6 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
             ),
-
             Expanded(
               child: FutureBuilder<List<ToDoItem>?>(
                 future: _getAllToDoItems(),
