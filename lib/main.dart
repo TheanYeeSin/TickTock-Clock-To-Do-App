@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/screens/main_screen.dart';
 
+// test
 void main() {
   runApp(const MyApp());
 }
