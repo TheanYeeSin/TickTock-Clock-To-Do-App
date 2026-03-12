@@ -1,0 +1,57 @@
+# .github/ISSUE_TEMPLATE/general_issue.yml
+name: 🔵 General Issue
+description: Report something that doesn't fit into bug or feature requests.
+title: "[Issue]: "
+labels: ["triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for opening an issue!  
+        Use this template for anything that doesn't fall under bug reports or feature requests.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue, concern, or topic you want to raise.
+      placeholder: What would you like to discuss or report?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide any relevant background or details.
+      placeholder: |
+        What were you trying to do?
+        Why is this important?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Links, screenshots, logs, or anything else helpful.
+      placeholder: Optional extra details.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Acknowledgements
+      description: Read this carefully, we will close and ignore your issue if you skimmed through this.
+      options:
+        - label: I have searched the existing issues and this is a new ticket, **NOT** a duplicate or related to another open or closed issue.
+          required: true
+        - label: I have written a short but informative title.
+          required: true
+        - label: I have updated the app to the latest version.
+          required: true
+        - label: I will fill out all of the requested information in this form.
+          required: true
