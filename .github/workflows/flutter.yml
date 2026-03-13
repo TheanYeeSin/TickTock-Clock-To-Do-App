@@ -1,0 +1,42 @@
+name: Flutter test and build
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📂 Check out code
+      uses: actions/checkout@v3
+
+    - name: 🚀 Cache pub deps
+      uses: actions/cache@v3
+      with:
+        path: ~/.pub-cache
+        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: ${{ runner.os }}-pub-
+
+    - name: ☕️ Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: 🦋 Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable' 
+
+    - name: 📥 Run Flutter pub get
+      run: flutter pub get
+
+    - name: ✅ Analyze the code, and discover lint errors
+      run: flutter analyze
+
+    - name: 🏷️ Run unit and widget tests
+      run: flutter test
+
+    - name: 🏗️ Build the android app
+      run: flutter build apk 
