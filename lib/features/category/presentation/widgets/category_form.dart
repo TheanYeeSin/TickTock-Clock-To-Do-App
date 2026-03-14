@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/category.dart';
+import 'package:tick_tock/features/category/domain/category.dart';
 import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/utils/picker_item.dart';
 import 'package:tick_tock/utils/validator.dart';

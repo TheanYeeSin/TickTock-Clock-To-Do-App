@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/category.dart';
+import 'package:tick_tock/features/category/domain/category.dart';
 import 'package:tick_tock/database/database_service.dart';
-import 'package:tick_tock/screens/form_screens/category_form_screen.dart';
-import 'package:tick_tock/widgets/category_item_tile.dart';
+import 'package:tick_tock/features/category/presentation/screens/category_form_screen.dart';
+import 'package:tick_tock/features/category/presentation/widgets/category_item_tile.dart';
 
 // Categories setting screen
 class CategorySettingsScreen extends StatefulWidget {

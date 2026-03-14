@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:tick_tock/utils/database.dart';
-import 'package:tick_tock/models/category.dart';
+import 'package:tick_tock/features/category/domain/category.dart';
 import 'package:tick_tock/models/to_do_item.dart';
 
 class DatabaseService {

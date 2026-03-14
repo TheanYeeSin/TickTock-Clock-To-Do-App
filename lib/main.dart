@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/core/constants/path.dart';
-import 'package:tick_tock/screens/category_settings_screen.dart';
+import 'package:tick_tock/features/category/presentation/screens/category_settings_screen.dart';
 import 'package:tick_tock/screens/main_screen.dart';
 
 void main() {
