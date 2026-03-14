@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/category.dart';
+import 'package:tick_tock/features/category/domain/category.dart';
 
 // Category setting list tile widget
 class CategoryItemTile extends StatelessWidget {

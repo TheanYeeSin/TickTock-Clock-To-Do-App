@@ -1,6 +1,6 @@
 import 'package:tick_tock/widgets/common/form/category_form.dart';
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/category.dart';
+import 'package:tick_tock/features/category/domain/category.dart';
 
 // Category form screen
 class CategoryFormScreen extends StatefulWidget {
