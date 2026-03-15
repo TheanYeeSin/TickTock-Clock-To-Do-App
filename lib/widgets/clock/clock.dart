@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/to_do_item.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
 import 'package:tick_tock/utils/color.dart';
 import 'package:tick_tock/utils/time.dart';
 import 'package:tick_tock/widgets/clock/clock_painter.dart';
 
 class Clock extends StatefulWidget {
   final TimeModel time;
-  final List<ToDoItem>? toDoItems;
+  final List<ToDo>? toDoItems;
   const Clock({super.key, required this.time, this.toDoItems});
 
   @override

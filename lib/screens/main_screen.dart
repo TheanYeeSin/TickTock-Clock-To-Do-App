@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/database/database_service.dart';
-import 'package:tick_tock/models/to_do_item.dart';
-import 'package:tick_tock/screens/category_settings_screen.dart';
+import 'package:tick_tock/features/category/presentation/screens/category_settings_screen.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
 import 'package:tick_tock/utils/color.dart';
 import 'package:tick_tock/utils/time.dart';
 import 'package:tick_tock/widgets/clock/clock.dart';
-import 'package:tick_tock/widgets/to_do_item_tile.dart';
+import 'package:tick_tock/features/to_do/presentation/widgets/to_do_item_tile.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,8 +16,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  Future<List<ToDoItem>?> _getAllToDoItems() {
-    return DatabaseService.getAllToDoItems();
+  Future<List<ToDo>?> _getAllToDos() {
+    return DatabaseService.getAllToDos();
   }
 
   @override
@@ -47,9 +47,9 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FutureBuilder<List<ToDoItem>?>(
-              future: _getAllToDoItems(),
-              builder: (context, AsyncSnapshot<List<ToDoItem>?> snapshot) {
+            FutureBuilder<List<ToDo>?>(
+              future: _getAllToDos(),
+              builder: (context, AsyncSnapshot<List<ToDo>?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
@@ -116,9 +116,9 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             Expanded(
-              child: FutureBuilder<List<ToDoItem>?>(
-                future: _getAllToDoItems(),
-                builder: (context, AsyncSnapshot<List<ToDoItem>?> snapshot) {
+              child: FutureBuilder<List<ToDo>?>(
+                future: _getAllToDos(),
+                builder: (context, AsyncSnapshot<List<ToDo>?> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
@@ -130,7 +130,7 @@ class _MainScreenState extends State<MainScreen> {
                   } else if (snapshot.hasData && snapshot.data != null) {
                     return ListView.builder(
                       itemBuilder: (context, index) {
-                        return ToDoItemTile(
+                        return ToDoTile(
                           iconColor: toDoGreen,
                           toDoItem: snapshot.data![index],
                           onDelete: () async {
@@ -160,8 +160,7 @@ class _MainScreenState extends State<MainScreen> {
                                         ),
                                         TextButton(
                                           onPressed: () async {
-                                            await DatabaseService
-                                                .deleteToDoItem(
+                                            await DatabaseService.deleteToDo(
                                               snapshot.data![index],
                                             );
                                             // ignore: use_build_context_synchronously

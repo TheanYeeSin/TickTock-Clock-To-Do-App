@@ -19,7 +19,7 @@ class RepeatOption {
   int get hashCode => value.hashCode;
 }
 
-class ToDoItem {
+class ToDo {
   int? id;
   String title;
   DateTime reminderTime;
@@ -32,7 +32,7 @@ class ToDoItem {
   bool isCompleted;
   final DateTime createdTime;
 
-  ToDoItem({
+  ToDo({
     this.id,
     required this.title,
     required this.reminderTime,
@@ -63,8 +63,8 @@ class ToDoItem {
     };
   }
 
-  factory ToDoItem.fromMap(Map<String, dynamic> map) {
-    return ToDoItem(
+  factory ToDo.fromMap(Map<String, dynamic> map) {
+    return ToDo(
       id: map['id'],
       title: map['title'],
       reminderTime: DateTime.parse(map['reminderTime']),

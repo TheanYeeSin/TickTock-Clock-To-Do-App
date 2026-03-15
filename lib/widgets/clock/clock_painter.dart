@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/to_do_item.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
 import 'package:tick_tock/utils/color.dart';
 import 'package:tick_tock/utils/time.dart';
 
 class ClockPainter extends CustomPainter {
   TimeModel? time;
-  List<ToDoItem>? toDoItems;
+  List<ToDo>? toDoItems;
   ClockPainter(this.time, this.toDoItems);
 
   @override
@@ -78,7 +78,7 @@ class ClockPainter extends CustomPainter {
     }
   }
 
-  void drawToDoSegment(Canvas canvas, Size size, ToDoItem item) {
+  void drawToDoSegment(Canvas canvas, Size size, ToDo item) {
     if (item.startTime == null || item.endTime == null) return;
 
     var centerX = size.width / 2;

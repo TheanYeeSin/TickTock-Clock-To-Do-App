@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/to_do_item.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
 import 'package:tick_tock/utils/color.dart';
 import 'package:tick_tock/utils/function.dart';
 import 'package:intl/intl.dart';
