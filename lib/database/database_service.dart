@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:tick_tock/utils/database.dart';
 import 'package:tick_tock/features/category/domain/category.dart';
-import 'package:tick_tock/models/to_do_item.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
 
 class DatabaseService {
   //PRIVATE METHOD GET DATABASE
@@ -90,7 +90,7 @@ class DatabaseService {
   }
 
   //ADD TODOITEM TO DATABASE
-  static Future<int> addToDoItem(ToDoItem toDoItem) async {
+  static Future<int> addToDo(ToDo toDoItem) async {
     final Database db = await _getDatabase();
     return await db.insert(
       toDoItemTableName,
@@ -100,7 +100,7 @@ class DatabaseService {
   }
 
   //UPDATE TODOITEM WITH THE SAME ID
-  static Future<int> updateToDoItem(ToDoItem toDoItem) async {
+  static Future<int> updateToDo(ToDo toDoItem) async {
     final db = await _getDatabase();
     return await db.update(
       toDoItemTableName,
@@ -112,14 +112,14 @@ class DatabaseService {
   }
 
   //DELETE TODOITEM WITH THE SAME ID
-  static Future<int> deleteToDoItem(ToDoItem toDoItem) async {
+  static Future<int> deleteToDo(ToDo toDoItem) async {
     final db = await _getDatabase();
     return await db
         .delete(toDoItemTableName, where: 'id = ?', whereArgs: [toDoItem.id]);
   }
 
   //GET ALL THE AVAILABLE TODOITEMS
-  static Future<List<ToDoItem>?> getAllToDoItems({
+  static Future<List<ToDo>?> getAllToDos({
     String orderBy = 'title ASC',
   }) async {
     final db = await _getDatabase();
@@ -129,7 +129,7 @@ class DatabaseService {
     if (maps.isNotEmpty) {
       return List.generate(
         maps.length,
-        (index) => ToDoItem.fromMap(maps[index]),
+        (index) => ToDo.fromMap(maps[index]),
       );
     } else {
       return null;
@@ -137,20 +137,20 @@ class DatabaseService {
   }
 
   //GET SPECIFIC TODOITEM WITH ID
-  static Future<ToDoItem> getToDoItemById(int toDoItemId) async {
+  static Future<ToDo> getToDoById(int toDoItemId) async {
     final db = await _getDatabase();
 
     final List<Map<String, dynamic>> maps = await db
         .query(toDoItemTableName, where: 'id = ?', whereArgs: [toDoItemId]);
     if (maps.isNotEmpty) {
-      return ToDoItem.fromMap(maps.first);
+      return ToDo.fromMap(maps.first);
     } else {
       throw Exception('ID $toDoItemId not found');
     }
   }
 
   //UPDATE COMPLETE FOR TODOITEM
-  static Future<int> updateToDoItemComplete(
+  static Future<int> updateToDoComplete(
     int toDoItemId,
     int isCompleted,
   ) async {

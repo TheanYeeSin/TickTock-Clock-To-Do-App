@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/database/database_service.dart';
-import 'package:tick_tock/models/to_do_item.dart';
-import 'package:tick_tock/screens/form_screens/to_do_form_screen.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
+import 'package:tick_tock/features/to_do/presentation/screens/to_do_form_screen.dart';
 import 'package:tick_tock/utils/color.dart';
 
-class ToDoItemTile extends StatefulWidget {
+class ToDoTile extends StatefulWidget {
   final Color iconColor;
-  final ToDoItem toDoItem;
+  final ToDo toDoItem;
   final VoidCallback onDelete;
-  const ToDoItemTile({
+  const ToDoTile({
     super.key,
     required this.iconColor,
     required this.toDoItem,
@@ -16,10 +16,10 @@ class ToDoItemTile extends StatefulWidget {
   });
 
   @override
-  State<ToDoItemTile> createState() => _ToDoItemTileState();
+  State<ToDoTile> createState() => _ToDoTileState();
 }
 
-class _ToDoItemTileState extends State<ToDoItemTile> {
+class _ToDoTileState extends State<ToDoTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,7 +44,7 @@ class _ToDoItemTileState extends State<ToDoItemTile> {
         leading: Checkbox(
           value: widget.toDoItem.isCompleted,
           onChanged: (value) async {
-            await DatabaseService.updateToDoItemComplete(
+            await DatabaseService.updateToDoComplete(
               widget.toDoItem.id!,
               value! ? 1 : 0,
             );

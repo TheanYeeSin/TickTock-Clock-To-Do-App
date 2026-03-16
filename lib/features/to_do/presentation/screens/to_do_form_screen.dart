@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/models/to_do_item.dart';
-import 'package:tick_tock/widgets/common/form/to_do_form.dart';
+import 'package:tick_tock/features/to_do/domain/to_do.dart';
+import 'package:tick_tock/features/to_do/presentation/widgets/to_do_form.dart';
 
 class ToDoFormScreen extends StatefulWidget {
-  final ToDoItem? toDoItem;
+  final ToDo? toDoItem;
 
   const ToDoFormScreen({super.key, this.toDoItem});
 
