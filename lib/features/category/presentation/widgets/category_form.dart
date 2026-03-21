@@ -3,8 +3,8 @@ import 'package:tick_tock/features/category/domain/category.dart';
 import 'package:tick_tock/database/database_service.dart';
 import 'package:tick_tock/utils/picker_item.dart';
 import 'package:tick_tock/utils/validator.dart';
-import 'package:tick_tock/widgets/common/custom_form_field.dart';
-import 'package:tick_tock/widgets/common/custom_picker.dart';
+import 'package:tick_tock/presentation/widgets/custom_form_field.dart';
+import 'package:tick_tock/presentation/widgets/custom_picker.dart';
 
 // Category Form
 class CategoryForm extends StatefulWidget {
