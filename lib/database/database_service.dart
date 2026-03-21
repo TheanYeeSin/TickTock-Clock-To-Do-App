@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:tick_tock/utils/database.dart';
+import 'package:tick_tock/core/constants/database.dart';
 import 'package:tick_tock/features/category/domain/category.dart';
 import 'package:tick_tock/features/to_do/domain/to_do.dart';
 
