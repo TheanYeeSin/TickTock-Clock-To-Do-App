@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/database/database_service.dart';
-import 'package:tick_tock/features/to_do/domain/to_do.dart';
-import 'package:tick_tock/utils/validator.dart';
-import 'package:tick_tock/presentation/widgets/custom_boolean_field.dart';
-import 'package:tick_tock/presentation/widgets/custom_form_field.dart';
-import 'package:tick_tock/presentation/widgets/custom_time_picker.dart';
-import 'package:tick_tock/widgets/reminder_time_picker.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/utils/validators/required_string.dart";
+import "package:tick_tock/database/database_service.dart";
+import "package:tick_tock/features/to_do/domain/to_do.dart";
+import "package:tick_tock/presentation/widgets/custom_boolean_field.dart";
+import "package:tick_tock/presentation/widgets/custom_form_field.dart";
+import "package:tick_tock/presentation/widgets/custom_time_picker.dart";
+import "package:tick_tock/widgets/reminder_time_picker.dart";
 
 class ToDoForm extends StatefulWidget {
   final ToDo? toDoItem;
@@ -92,155 +92,154 @@ class _ToDoFormState extends State<ToDoForm> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              //TITLE
-              CustomFormField(
-                controller: _titleController,
-                hintText: "Title",
-                errorText: "Required",
-                prefixIcon: const Icon(Icons.document_scanner),
-                validator: requiredString,
-                margin: const EdgeInsets.only(bottom: 16),
-                readOnly: !isEditMode,
-              ),
-              // REMINDER DATETIME PICKER
-              ReminderTimePicker(
-                labelText: "Reminder",
-                initialDateTime: _reminderTimeController.value,
-                initialRepeatOption: _repeatOptionController.value,
-                margin: const EdgeInsets.only(bottom: 16),
-                readOnly: !isEditMode,
-                onDateTimeChanged: (newTime) {
-                  setState(() {
-                    _reminderTimeController.value = newTime;
-                  });
-                },
-                onRepeatOptionChanged: (newValue) {
-                  setState(() {
-                    _repeatOptionController.value = newValue;
-                  });
-                },
-              ),
-              //START TIME PICKER
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTimePicker(
-                      labelText: "Start",
-                      margin: const EdgeInsets.only(bottom: 16),
-                      initialTime: _startTimeController.value,
-                      icon: const Icon(Icons.start),
-                      readOnly: !isEditMode,
-                      onTimeChanged: (newTime) {
-                        setState(() {
-                          _startTimeController.value = newTime;
-                        });
-                        if (!_validateTimeRange()) {
-                          _startTimeController.value = null;
-                        }
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  //END TIME PICKER
-                  Expanded(
-                    child: CustomTimePicker(
-                      labelText: "End",
-                      margin: const EdgeInsets.only(bottom: 16),
-                      initialTime: _endTimeController.value,
-                      icon: const Icon(Icons.stop),
-                      readOnly: !isEditMode,
-                      onTimeChanged: (newTime) {
-                        setState(() {
-                          _endTimeController.value = newTime;
-                        });
-                        if (!_validateTimeRange()) {
-                          setState(() {
-                            _endTimeController.value = null;
-                          });
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              //IS IMPORTANT
-              CustomBooleanField(
-                initialBool: _isImportantController.value,
-                labelText: "Mark as Important",
-                prefixIcon: const Icon(
-                  Icons.priority_high_rounded,
-                  color: Colors.red,
+  Widget build(final BuildContext context) => Scaffold(
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(10),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                //TITLE
+                CustomFormField(
+                  controller: _titleController,
+                  hintText: "Title",
+                  errorText: "Required",
+                  prefixIcon: const Icon(Icons.document_scanner),
+                  validator: requiredString,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  readOnly: !isEditMode,
                 ),
-                readOnly: !isEditMode,
-                margin: const EdgeInsets.only(bottom: 16),
-                onChanged: (newBool) {
-                  setState(() {
-                    _isImportantController.value = newBool;
-                  });
-                },
-              ),
-              //DESCRIPTION
-              CustomFormField(
-                controller: _descriptionController,
-                hintText: "Description",
-                errorText: "Required",
-                prefixIcon: const Icon(Icons.description),
-                maxLines: 3,
-                margin: const EdgeInsets.only(bottom: 16),
-                readOnly: !isEditMode,
-              ),
-            ],
+                // REMINDER DATETIME PICKER
+                ReminderTimePicker(
+                  labelText: "Reminder",
+                  initialDateTime: _reminderTimeController.value,
+                  initialRepeatOption: _repeatOptionController.value,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  readOnly: !isEditMode,
+                  onDateTimeChanged: (newTime) {
+                    setState(() {
+                      _reminderTimeController.value = newTime;
+                    });
+                  },
+                  onRepeatOptionChanged: (newValue) {
+                    setState(() {
+                      _repeatOptionController.value = newValue;
+                    });
+                  },
+                ),
+                //START TIME PICKER
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTimePicker(
+                        labelText: "Start",
+                        margin: const EdgeInsets.only(bottom: 16),
+                        initialTime: _startTimeController.value,
+                        icon: const Icon(Icons.start),
+                        readOnly: !isEditMode,
+                        onTimeChanged: (newTime) {
+                          setState(() {
+                            _startTimeController.value = newTime;
+                          });
+                          if (!_validateTimeRange()) {
+                            _startTimeController.value = null;
+                          }
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    //END TIME PICKER
+                    Expanded(
+                      child: CustomTimePicker(
+                        labelText: "End",
+                        margin: const EdgeInsets.only(bottom: 16),
+                        initialTime: _endTimeController.value,
+                        icon: const Icon(Icons.stop),
+                        readOnly: !isEditMode,
+                        onTimeChanged: (newTime) {
+                          setState(() {
+                            _endTimeController.value = newTime;
+                          });
+                          if (!_validateTimeRange()) {
+                            setState(() {
+                              _endTimeController.value = null;
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                //IS IMPORTANT
+                CustomBooleanField(
+                  initialBool: _isImportantController.value,
+                  labelText: "Mark as Important",
+                  prefixIcon: const Icon(
+                    Icons.priority_high_rounded,
+                    color: Colors.red,
+                  ),
+                  readOnly: !isEditMode,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  onChanged: (newBool) {
+                    setState(() {
+                      _isImportantController.value = newBool;
+                    });
+                  },
+                ),
+                //DESCRIPTION
+                CustomFormField(
+                  controller: _descriptionController,
+                  hintText: "Description",
+                  errorText: "Required",
+                  prefixIcon: const Icon(Icons.description),
+                  maxLines: 3,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  readOnly: !isEditMode,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: isEditMode
-            ? () async {
-                if (_formKey.currentState!.validate()) {
-                  final title = _titleController.value.text.trim();
-                  final description = _descriptionController.value.text.trim();
-                  final reminderTime = _reminderTimeController.value;
-                  final repeatOption = _repeatOptionController.value;
-                  final startTime = _startTimeController.value;
-                  final endTime = _endTimeController.value;
-                  final createdTime =
-                      widget.toDoItem?.createdTime ?? DateTime.now();
-                  final isCompleted = widget.toDoItem?.isCompleted ?? false;
-                  final isImportant = _isImportantController.value;
+        floatingActionButton: FloatingActionButton(
+          onPressed: isEditMode
+              ? () async {
+                  if (_formKey.currentState!.validate()) {
+                    final title = _titleController.value.text.trim();
+                    final description =
+                        _descriptionController.value.text.trim();
+                    final reminderTime = _reminderTimeController.value;
+                    final repeatOption = _repeatOptionController.value;
+                    final startTime = _startTimeController.value;
+                    final endTime = _endTimeController.value;
+                    final createdTime =
+                        widget.toDoItem?.createdTime ?? DateTime.now();
+                    final isCompleted = widget.toDoItem?.isCompleted ?? false;
+                    final isImportant = _isImportantController.value;
 
-                  final ToDo newToDo = ToDo(
-                    id: widget.toDoItem?.id,
-                    title: title,
-                    reminderTime: reminderTime,
-                    repeatOption: repeatOption,
-                    startTime: startTime,
-                    endTime: endTime,
-                    createdTime: createdTime,
-                    isCompleted: isCompleted,
-                    isImportant: isImportant,
-                    description: description,
-                  );
+                    final ToDo newToDo = ToDo(
+                      id: widget.toDoItem?.id,
+                      title: title,
+                      reminderTime: reminderTime,
+                      repeatOption: repeatOption,
+                      startTime: startTime,
+                      endTime: endTime,
+                      createdTime: createdTime,
+                      isCompleted: isCompleted,
+                      isImportant: isImportant,
+                      description: description,
+                    );
 
-                  if (widget.toDoItem == null) {
-                    await DatabaseService.addToDo(newToDo);
-                  } else {
-                    await DatabaseService.updateToDo(newToDo);
+                    if (widget.toDoItem == null) {
+                      await DatabaseService.addToDo(newToDo);
+                    } else {
+                      await DatabaseService.updateToDo(newToDo);
+                    }
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
                   }
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
                 }
-              }
-            : _toggleEditMode,
-        child: Icon(isEditMode ? Icons.check : Icons.edit),
-      ),
-    );
-  }
+              : _toggleEditMode,
+          child: Icon(isEditMode ? Icons.check : Icons.edit),
+        ),
+      );
 }

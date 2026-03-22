@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/utils/validator.dart';
+import 'package:tick_tock/core/types/validator.dart';
 
 class CustomFormField<T> extends StatelessWidget {
   final TextEditingController? controller;

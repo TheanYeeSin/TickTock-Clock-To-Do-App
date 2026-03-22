@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/features/category/domain/category.dart';
-import 'package:tick_tock/database/database_service.dart';
-import 'package:tick_tock/utils/picker_item.dart';
-import 'package:tick_tock/utils/validator.dart';
-import 'package:tick_tock/presentation/widgets/custom_form_field.dart';
-import 'package:tick_tock/presentation/widgets/custom_picker.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/utils/validators/required_string.dart";
+import "package:tick_tock/database/database_service.dart";
+import "package:tick_tock/features/category/domain/category.dart";
+import "package:tick_tock/presentation/widgets/custom_form_field.dart";
+import "package:tick_tock/presentation/widgets/custom_picker.dart";
+import "package:tick_tock/utils/picker_item.dart";
 
 // Category Form
 class CategoryForm extends StatefulWidget {
@@ -36,73 +36,71 @@ class _CategoryFormState extends State<CategoryForm> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              //-----Category Name-----
-              CustomFormField(
-                controller: categoryNameController,
-                hintText: "Category Name",
-                errorText: "Required",
-                prefixIcon: const Icon(Icons.catching_pokemon_outlined),
-                readOnly: false,
-                validator: requiredString,
-                margin: const EdgeInsets.only(bottom: 16),
-              ),
-              CustomPicker<String>(
-                margin: const EdgeInsets.only(bottom: 16),
-                crossAxisCount: 7,
-                initialValue: colorController.text,
-                items: colors,
-                onItemSelected: (selectedColor) {
-                  setState(() {
-                    colorController.text = selectedColor;
-                  });
-                },
-              ),
-              CustomPicker<String>(
-                initialValue: iconController.text,
-                crossAxisCount: 7,
-                items: icons,
-                onItemSelected: (selectedIcon) {
-                  setState(() {
-                    iconController.text = selectedIcon;
-                  });
-                },
-              ),
-            ],
+  Widget build(BuildContext context) => Scaffold(
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                //-----Category Name-----
+                CustomFormField(
+                  controller: categoryNameController,
+                  hintText: "Category Name",
+                  errorText: "Required",
+                  prefixIcon: const Icon(Icons.catching_pokemon_outlined),
+                  readOnly: false,
+                  validator: requiredString,
+                  margin: const EdgeInsets.only(bottom: 16),
+                ),
+                CustomPicker<String>(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  crossAxisCount: 7,
+                  initialValue: colorController.text,
+                  items: colors,
+                  onItemSelected: (selectedColor) {
+                    setState(() {
+                      colorController.text = selectedColor;
+                    });
+                  },
+                ),
+                CustomPicker<String>(
+                  initialValue: iconController.text,
+                  crossAxisCount: 7,
+                  items: icons,
+                  onItemSelected: (selectedIcon) {
+                    setState(() {
+                      iconController.text = selectedIcon;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            final name = categoryNameController.value.text.trim();
-            final color = colorController.value.text.trim();
-            final icon = iconController.value.text.trim();
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              final name = categoryNameController.value.text.trim();
+              final color = colorController.value.text.trim();
+              final icon = iconController.value.text.trim();
 
-            final Category newCategory = Category(
-              id: widget.category?.id,
-              name: name,
-              icon: icon,
-              color: color,
-            );
-            if (widget.category == null) {
-              await DatabaseService.addCategory(newCategory);
-            } else {
-              await DatabaseService.updateCategory(newCategory);
+              final Category newCategory = Category(
+                id: widget.category?.id,
+                name: name,
+                icon: icon,
+                color: color,
+              );
+              if (widget.category == null) {
+                await DatabaseService.addCategory(newCategory);
+              } else {
+                await DatabaseService.updateCategory(newCategory);
+              }
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context);
             }
-            // ignore: use_build_context_synchronously
-            Navigator.pop(context);
-          }
-        },
-        child: const Icon(Icons.check),
-      ),
-    );
-  }
+          },
+          child: const Icon(Icons.check),
+        ),
+      );
 }
