@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/database/database_service.dart';
-import 'package:tick_tock/features/category/presentation/screens/category_settings_screen.dart';
-import 'package:tick_tock/features/to_do/domain/to_do.dart';
-import 'package:tick_tock/utils/color.dart';
-import 'package:tick_tock/utils/time.dart';
-import 'package:tick_tock/widgets/clock/clock.dart';
-import 'package:tick_tock/features/to_do/presentation/widgets/to_do_item_tile.dart';
-import 'package:timer_builder/timer_builder.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/types/time.dart";
+import "package:tick_tock/database/database_service.dart";
+import "package:tick_tock/features/category/presentation/screens/category_settings_screen.dart";
+import "package:tick_tock/features/to_do/domain/to_do.dart";
+import "package:tick_tock/features/to_do/presentation/widgets/to_do_item_tile.dart";
+import "package:tick_tock/utils/color.dart";
+import "package:tick_tock/widgets/clock/clock.dart";
+import "package:timer_builder/timer_builder.dart";
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text(
-                      'Something went wrong! Error: ${snapshot.error}',
+                      "Something went wrong! Error: ${snapshot.error}",
                     ),
                   );
                 } else if (snapshot.hasData && snapshot.data != null) {
@@ -124,7 +124,7 @@ class _MainScreenState extends State<MainScreen> {
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(
-                        'Something went wrong! Error: ${snapshot.error}',
+                        "Something went wrong! Error: ${snapshot.error}",
                       ),
                     );
                   } else if (snapshot.hasData && snapshot.data != null) {

@@ -1,9 +1,9 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:flutter/material.dart';
-import 'package:tick_tock/features/to_do/domain/to_do.dart';
-import 'package:tick_tock/utils/color.dart';
-import 'package:tick_tock/utils/time.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/types/time.dart";
+import "package:tick_tock/features/to_do/domain/to_do.dart";
+import "package:tick_tock/utils/color.dart";
 
 class ClockPainter extends CustomPainter {
   TimeModel? time;
