@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/features/category/domain/category.dart';
-import 'package:tick_tock/database/database_service.dart';
+import 'package:tick_tock/core/database/database_service.dart';
 import 'package:tick_tock/features/category/presentation/screens/category_form_screen.dart';
 import 'package:tick_tock/features/category/presentation/widgets/category_item_tile.dart';
 
