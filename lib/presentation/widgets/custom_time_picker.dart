@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/utils/color.dart';
+import 'package:tick_tock/core/utils/color.dart';
 
 class CustomTimePicker extends StatelessWidget {
   final String labelText;

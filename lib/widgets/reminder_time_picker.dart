@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tick_tock/features/to_do/domain/to_do.dart';
-import 'package:tick_tock/utils/color.dart';
+import 'package:tick_tock/core/utils/color.dart';
 import 'package:tick_tock/utils/function.dart';
 import 'package:intl/intl.dart';
 import 'package:tick_tock/presentation/widgets/custom_divider.dart';
