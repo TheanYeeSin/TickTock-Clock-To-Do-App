@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tick_tock/utils/picker_item.dart';
+import 'package:tick_tock/core/utils/picker_item.dart';
 
 class CustomPicker<T> extends StatefulWidget {
   final List<PickerItem<T>> items;
