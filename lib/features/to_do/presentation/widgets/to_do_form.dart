@@ -5,7 +5,7 @@ import "package:tick_tock/features/to_do/domain/to_do.dart";
 import "package:tick_tock/presentation/widgets/custom_boolean_field.dart";
 import "package:tick_tock/presentation/widgets/custom_form_field.dart";
 import "package:tick_tock/presentation/widgets/custom_time_picker.dart";
-import "package:tick_tock/widgets/reminder_time_picker.dart";
+import "package:tick_tock/presentation/widgets/reminder_time_picker.dart";
 
 class ToDoForm extends StatefulWidget {
   final ToDo? toDoItem;
