@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         title: "TickTock",
         home: const MainScreen(),
         routes: {
-          CATEGORY_SETTINGS_PATH: (final context) =>
+          categorySettingPath: (final context) =>
               const CategorySettingsScreen(),
         },
       );

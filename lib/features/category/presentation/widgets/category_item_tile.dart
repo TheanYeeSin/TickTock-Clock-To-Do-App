@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/features/category/domain/category.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/features/category/domain/category.dart";
 
 // Category setting list tile widget
 class CategoryItemTile extends StatelessWidget {
@@ -15,34 +15,32 @@ class CategoryItemTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
-      child: Card(
-        elevation: 8.0,
-        child: InkWell(
-          onDoubleTap: onEdit,
-          onLongPress: onDelete,
-          child: Ink(
-            child: ListTile(
-              leading: IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: onEdit,
-              ),
-              title: Text(
-                category.name,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-                maxLines: 1,
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete, color: Colors.redAccent),
-                onPressed: onDelete,
+  Widget build(final BuildContext context) => Padding(
+        padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+        child: Card(
+          elevation: 8,
+          child: InkWell(
+            onDoubleTap: onEdit,
+            onLongPress: onDelete,
+            child: Ink(
+              child: ListTile(
+                leading: IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: onEdit,
+                ),
+                title: Text(
+                  category.name,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  maxLines: 1,
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.redAccent),
+                  onPressed: onDelete,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

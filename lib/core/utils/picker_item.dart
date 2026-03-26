@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class PickerItem<T> {
   final T value;
@@ -13,15 +13,15 @@ class PickerItem<T> {
 // AVAILABLE COLORS
 List<PickerItem<String>> colors = [
   PickerItem(
-    value: '#FF0000',
+    value: "#FF0000",
     displayWidget: Container(color: Colors.red, width: 1, height: 1),
   ),
   PickerItem(
-    value: '#0000FF',
+    value: "#0000FF",
     displayWidget: Container(color: Colors.blue, width: 1, height: 1),
   ),
   PickerItem(
-    value: '#00FF00',
+    value: "#00FF00",
     displayWidget: Container(
       color: Colors.green,
       width: 1,
@@ -33,21 +33,21 @@ List<PickerItem<String>> colors = [
 // AVAILABLE ICONS
 List<PickerItem<String>> icons = [
   PickerItem(
-    value: 'work',
+    value: "work",
     displayWidget: const Icon(
       Icons.work,
       size: 30,
     ),
   ),
   PickerItem(
-    value: 'sports',
+    value: "sports",
     displayWidget: const Icon(
       Icons.sports,
       size: 30,
     ),
   ),
   PickerItem(
-    value: 'knowledge',
+    value: "knowledge",
     displayWidget: const Icon(
       Icons.book,
       size: 30,

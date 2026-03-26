@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/core/types/validator.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/types/validator.dart";
 
 class CustomFormField<T> extends StatelessWidget {
   final TextEditingController? controller;
@@ -26,30 +26,28 @@ class CustomFormField<T> extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      child: TextFormField(
-        readOnly: readOnly,
-        controller: controller,
-        maxLines: maxLines,
-        decoration: InputDecoration(
-          prefixIcon: Padding(
-            padding: const EdgeInsetsDirectional.only(start: 8.0),
-            child: prefixIcon,
+  Widget build(final BuildContext context) => Container(
+        margin: margin,
+        child: TextFormField(
+          readOnly: readOnly,
+          controller: controller,
+          maxLines: maxLines,
+          decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 8.0),
+              child: prefixIcon,
+            ),
+            hintText: hintText,
+            suffixIcon: suffixIcon,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(width: 1, color: Colors.blue),
+            ),
           ),
-          hintText: hintText,
-          suffixIcon: suffixIcon,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(width: 1, color: Colors.blue),
-          ),
+          validator: (final value) => validator?.call(value as T, errorText),
         ),
-        validator: (value) => validator?.call(value as T, errorText),
-      ),
-    );
-  }
+      );
 }

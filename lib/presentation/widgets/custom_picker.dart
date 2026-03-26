@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/core/utils/picker_item.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/utils/picker_item.dart";
 
 class CustomPicker<T> extends StatefulWidget {
   final List<PickerItem<T>> items;
@@ -38,20 +38,18 @@ class _CustomPickerState<T> extends State<CustomPicker<T>> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 69,
-      width: double.infinity,
-      margin: widget.margin,
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: widget.crossAxisCount,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-        ),
-        itemCount: widget.items.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
+  Widget build(final BuildContext context) => Container(
+        height: 69,
+        width: double.infinity,
+        margin: widget.margin,
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: widget.crossAxisCount,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+          ),
+          itemCount: widget.items.length,
+          itemBuilder: (final context, final index) => GestureDetector(
             onTap: () {
               setState(() {
                 selectedIndex = index;
@@ -59,19 +57,17 @@ class _CustomPickerState<T> extends State<CustomPicker<T>> {
               widget.onItemSelected(widget.items[index].value);
             },
             child: Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 border: Border.all(
                   color:
                       selectedIndex == index ? Colors.blue : Colors.transparent,
-                  width: 2.0,
+                  width: 2,
                 ),
               ),
               child: widget.items[index].displayWidget,
             ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+        ),
+      );
 }

@@ -2,8 +2,8 @@ import "dart:math";
 
 import "package:flutter/material.dart";
 import "package:tick_tock/core/types/time.dart";
-import "package:tick_tock/features/to_do/domain/to_do.dart";
 import "package:tick_tock/core/utils/color.dart";
+import "package:tick_tock/features/to_do/domain/to_do.dart";
 
 class ClockPainter extends CustomPainter {
   TimeModel? time;
@@ -11,83 +11,82 @@ class ClockPainter extends CustomPainter {
   ClockPainter(this.time, this.toDoItems);
 
   @override
-  void paint(Canvas canvas, Size size) {
-    double secRad = ((pi / 2) - (pi / 30) * time!.sec!) % (2 * pi);
-    double minRad = ((pi / 2) - (pi / 30) * time!.min!) % (2 * pi);
-    double hourRad = ((pi / 2) - (pi / 6) * time!.hour!) % (2 * pi);
+  void paint(final Canvas canvas, final Size size) {
+    final double secRad = ((pi / 2) - (pi / 30) * time!.sec!) % (2 * pi);
+    final double minRad = ((pi / 2) - (pi / 30) * time!.min!) % (2 * pi);
+    final double hourRad = ((pi / 2) - (pi / 6) * time!.hour!) % (2 * pi);
 
-    var centerX = size.width / 2;
-    var centerY = size.height / 2;
-    var center = Offset(centerX, centerY);
-    var radius = min(centerX, centerY);
+    final centerX = size.width / 2;
+    final centerY = size.height / 2;
+    final center = Offset(centerX, centerY);
+    final radius = min(centerX, centerY);
 
-    var secHeight = radius / 2;
-    var minHeight = radius / 2 - 10;
-    var hourHeight = radius / 2 - 35;
+    final secHeight = radius / 2;
+    final minHeight = radius / 2 - 10;
+    final hourHeight = radius / 2 - 35;
 
-    var seconds = Offset(
+    final seconds = Offset(
       centerX + secHeight * cos(secRad),
       centerY - secHeight * sin(secRad),
     );
-    var minutes = Offset(
+    final minutes = Offset(
       centerX + minHeight * cos(minRad),
       centerY - minHeight * sin(minRad),
     );
-    var hours = Offset(
+    final hours = Offset(
       centerX + hourHeight * cos(hourRad),
       centerY - hourHeight * sin(hourRad),
     );
 
-    var fillBrush = Paint()
+    final fillBrush = Paint()
       ..color = AppStyle.primaryColor
       ..strokeCap = StrokeCap.round;
 
-    var centerDotBrush = Paint()..color = const Color(0xFFEAECFF);
+    final centerDotBrush = Paint()..color = const Color(0xFFEAECFF);
 
-    var secBrush = Paint()
+    final secBrush = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 3
       ..strokeJoin = StrokeJoin.round;
 
-    var minBrush = Paint()
+    final minBrush = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 3
       ..strokeJoin = StrokeJoin.round;
 
-    var hourBrush = Paint()
+    final hourBrush = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 3
       ..strokeJoin = StrokeJoin.round;
 
-    canvas.drawCircle(center, radius - 40, fillBrush);
+    canvas
+      ..drawCircle(center, radius - 40, fillBrush)
+      ..drawLine(center, seconds, secBrush)
+      ..drawLine(center, minutes, minBrush)
+      ..drawLine(center, hours, hourBrush)
+      ..drawCircle(center, 16, centerDotBrush);
 
-    canvas.drawLine(center, seconds, secBrush);
-    canvas.drawLine(center, minutes, minBrush);
-    canvas.drawLine(center, hours, hourBrush);
-
-    canvas.drawCircle(center, 16, centerDotBrush);
-
-    for (var item in toDoItems!) {
+    for (final item in toDoItems!) {
       drawToDoSegment(canvas, size, item);
     }
   }
 
-  void drawToDoSegment(Canvas canvas, Size size, ToDo item) {
+  void drawToDoSegment(final Canvas canvas, final Size size, final ToDo item) {
     if (item.startTime == null || item.endTime == null) return;
 
-    var centerX = size.width / 2;
-    var centerY = size.height / 2;
-    var center = Offset(centerX, centerY);
-    var radius = min(centerX, centerY);
+    final centerX = size.width / 2;
+    final centerY = size.height / 2;
+    final center = Offset(centerX, centerY);
+    final radius = min(centerX, centerY);
 
 // Calculate start and end angles in radians
-    double startRad = ((item.startTime!.hour + 9) % 12) / 6 * pi;
+    final double startRad = ((item.startTime!.hour + 9) % 12) / 6 * pi;
     double endRad = ((item.endTime!.hour + 9) % 12) / 6 * pi;
 
     // print("startrad: ${startRad}");
@@ -110,11 +109,11 @@ class ClockPainter extends CustomPainter {
 
     // print(startRad);
 
-    var segmentBrush = Paint()
+    final segmentBrush = Paint()
       ..color = Colors.black.withAlpha(100)
       ..style = PaintingStyle.fill;
 
-    var path = Path()
+    final path = Path()
       ..moveTo(center.dx, center.dy)
       ..arcTo(
         Rect.fromCircle(center: center, radius: radius - 40),
@@ -127,7 +126,7 @@ class ClockPainter extends CustomPainter {
     canvas.drawPath(path, segmentBrush);
 
     // Draw Label
-    var textPainter = TextPainter(
+    final textPainter = TextPainter(
       text: TextSpan(
         text: item.title,
         style: const TextStyle(color: Colors.black, fontSize: 12),
@@ -135,8 +134,8 @@ class ClockPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     textPainter.layout();
-    double labelAngle = startRad + (endRad - startRad) / 2;
-    var labelOffset = Offset(
+    final double labelAngle = startRad + (endRad - startRad) / 2;
+    final labelOffset = Offset(
       center.dx + (radius - 60) * cos(labelAngle) - textPainter.width / 2,
       center.dy - (radius - 60) * sin(labelAngle) - textPainter.height / 2,
     );
@@ -144,7 +143,7 @@ class ClockPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant final CustomPainter oldDelegate) {
     // TODO: implement shouldRepaint
     return true;
   }

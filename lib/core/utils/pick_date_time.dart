@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 Future pickDateTime({
-  required BuildContext context,
-  DateTime? initialDateTime,
-  TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial,
+  required final BuildContext context,
+  final DateTime? initialDateTime,
+  final TimePickerEntryMode initialEntryMode = TimePickerEntryMode.dial,
 }) async {
-  DateTime initialDate = initialDateTime ?? DateTime.now();
-  TimeOfDay initialTime = TimeOfDay.fromDateTime(initialDate);
+  final DateTime initialDate = initialDateTime ?? DateTime.now();
+  final TimeOfDay initialTime = TimeOfDay.fromDateTime(initialDate);
 
   //DATE PICKER
   final DateTime? pickedDate = await showDatePicker(
@@ -24,14 +24,13 @@ Future pickDateTime({
   final TimeOfDay? pickedTime = await showTimePicker(
     context: context,
     initialTime: initialTime,
-    initialEntryMode: TimePickerEntryMode.dial,
   );
 
   if (pickedTime == null) {
     return null;
   }
 
-  DateTime pickedDateTime = DateTime(
+  final DateTime pickedDateTime = DateTime(
     pickedDate.year,
     pickedDate.month,
     pickedDate.day,

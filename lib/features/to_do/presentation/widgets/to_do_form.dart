@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/utils/validators/required_string.dart";
 import "package:tick_tock/core/database/database_service.dart";
+import "package:tick_tock/core/utils/validators/required_string.dart";
 import "package:tick_tock/features/to_do/domain/to_do.dart";
 import "package:tick_tock/presentation/widgets/custom_boolean_field.dart";
 import "package:tick_tock/presentation/widgets/custom_form_field.dart";
@@ -71,20 +71,18 @@ class _ToDoFormState extends State<ToDoForm> {
     if (!_isTimeRangeValid()) {
       showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Invalid Time Range"),
-            content: const Text("End time must be greater than start time."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        },
+        builder: (final BuildContext context) => AlertDialog(
+          title: const Text("Invalid Time Range"),
+          content: const Text("End time must be greater than start time."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        ),
       );
       return false;
     }
@@ -116,12 +114,12 @@ class _ToDoFormState extends State<ToDoForm> {
                   initialRepeatOption: _repeatOptionController.value,
                   margin: const EdgeInsets.only(bottom: 16),
                   readOnly: !isEditMode,
-                  onDateTimeChanged: (newTime) {
+                  onDateTimeChanged: (final newTime) {
                     setState(() {
                       _reminderTimeController.value = newTime;
                     });
                   },
-                  onRepeatOptionChanged: (newValue) {
+                  onRepeatOptionChanged: (final newValue) {
                     setState(() {
                       _repeatOptionController.value = newValue;
                     });
@@ -137,7 +135,7 @@ class _ToDoFormState extends State<ToDoForm> {
                         initialTime: _startTimeController.value,
                         icon: const Icon(Icons.start),
                         readOnly: !isEditMode,
-                        onTimeChanged: (newTime) {
+                        onTimeChanged: (final newTime) {
                           setState(() {
                             _startTimeController.value = newTime;
                           });
@@ -156,7 +154,7 @@ class _ToDoFormState extends State<ToDoForm> {
                         initialTime: _endTimeController.value,
                         icon: const Icon(Icons.stop),
                         readOnly: !isEditMode,
-                        onTimeChanged: (newTime) {
+                        onTimeChanged: (final newTime) {
                           setState(() {
                             _endTimeController.value = newTime;
                           });
@@ -180,7 +178,7 @@ class _ToDoFormState extends State<ToDoForm> {
                   ),
                   readOnly: !isEditMode,
                   margin: const EdgeInsets.only(bottom: 16),
-                  onChanged: (newBool) {
+                  onChanged: (final newBool) {
                     setState(() {
                       _isImportantController.value = newBool;
                     });

@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/utils/validators/required_string.dart";
 import "package:tick_tock/core/database/database_service.dart";
+import "package:tick_tock/core/utils/picker_item.dart";
+import "package:tick_tock/core/utils/validators/required_string.dart";
 import "package:tick_tock/features/category/domain/category.dart";
 import "package:tick_tock/presentation/widgets/custom_form_field.dart";
 import "package:tick_tock/presentation/widgets/custom_picker.dart";
-import "package:tick_tock/core/utils/picker_item.dart";
 
 // Category Form
 class CategoryForm extends StatefulWidget {
@@ -27,7 +27,7 @@ class _CategoryFormState extends State<CategoryForm> {
     _loadCategoryData();
   }
 
-  _loadCategoryData() async {
+  Future<void> _loadCategoryData() async {
     if (widget.category != null) {
       categoryNameController.text = widget.category!.name;
       iconController.text = widget.category!.icon;
@@ -36,7 +36,7 @@ class _CategoryFormState extends State<CategoryForm> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Form(
@@ -58,7 +58,7 @@ class _CategoryFormState extends State<CategoryForm> {
                   crossAxisCount: 7,
                   initialValue: colorController.text,
                   items: colors,
-                  onItemSelected: (selectedColor) {
+                  onItemSelected: (final selectedColor) {
                     setState(() {
                       colorController.text = selectedColor;
                     });
@@ -68,7 +68,7 @@ class _CategoryFormState extends State<CategoryForm> {
                   initialValue: iconController.text,
                   crossAxisCount: 7,
                   items: icons,
-                  onItemSelected: (selectedIcon) {
+                  onItemSelected: (final selectedIcon) {
                     setState(() {
                       iconController.text = selectedIcon;
                     });

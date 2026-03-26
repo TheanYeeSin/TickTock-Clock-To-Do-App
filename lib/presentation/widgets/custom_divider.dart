@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class CustomDivider extends StatelessWidget {
   final double symmetricPadding;
@@ -12,10 +12,8 @@ class CustomDivider extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: symmetricPadding),
-      child: Divider(height: dividerHeight, thickness: dividerThickness),
-    );
-  }
+  Widget build(final BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(vertical: symmetricPadding),
+        child: Divider(height: dividerHeight, thickness: dividerThickness),
+      );
 }

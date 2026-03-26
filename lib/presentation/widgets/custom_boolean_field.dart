@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/core/utils/color.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/core/utils/color.dart";
 
 class CustomBooleanField extends StatefulWidget {
   final String labelText;

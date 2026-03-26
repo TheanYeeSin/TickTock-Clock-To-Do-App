@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/core/utils/color.dart';
+import "package:flutter/material.dart";
 
 class CustomTimePicker extends StatelessWidget {
   final String labelText;
@@ -20,44 +19,41 @@ class CustomTimePicker extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: margin,
-      decoration: BoxDecoration(
-        border: Border.all(color: borderColor),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          padding: const EdgeInsets.all(16.0),
+  Widget build(final BuildContext context) => Container(
+        width: double.infinity,
+        margin: margin,
+        decoration: BoxDecoration(
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(8),
         ),
-        onPressed: !readOnly
-            ? () async {
-                final TimeOfDay? pickedTime = await showTimePicker(
-                  context: context,
-                  initialTime: initialTime ?? TimeOfDay.now(),
-                  initialEntryMode: TimePickerEntryMode.dial,
-                );
-                if (pickedTime != null) {
-                  onTimeChanged(pickedTime);
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            padding: const EdgeInsets.all(16),
+          ),
+          onPressed: !readOnly
+              ? () async {
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: initialTime ?? TimeOfDay.now(),
+                  );
+                  if (pickedTime != null) {
+                    onTimeChanged(pickedTime);
+                  }
                 }
-              }
-            : null,
-        child: Row(
-          children: [
-            icon,
-            const SizedBox(width: 8),
-            Text(
-              initialTime != null
-                  ? initialTime!.format(context)
-                  : labelText, // Format the time
-              style: const TextStyle(fontSize: 16),
-            ),
-          ],
+              : null,
+          child: Row(
+            children: [
+              icon,
+              const SizedBox(width: 8),
+              Text(
+                initialTime != null
+                    ? initialTime!.format(context)
+                    : labelText, // Format the time
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

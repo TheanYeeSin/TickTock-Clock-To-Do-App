@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class RepeatOption {
   String value;
@@ -12,7 +12,7 @@ class RepeatOption {
   static RepeatOption everyYear = RepeatOption("Every Year");
 
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(final Object other) =>
       other is RepeatOption && other.value == value;
 
   @override
@@ -46,42 +46,41 @@ class ToDo {
     required this.createdTime,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'title': title,
-      'reminderTime': reminderTime.toIso8601String(),
-      'repeatOption': repeatOption.value,
-      'startTime':
-          startTime != null ? '${startTime!.hour}:${startTime!.minute}' : null,
-      'endTime': endTime != null ? '${endTime!.hour}:${endTime!.minute}' : null,
-      'isImportant': isImportant ? 1 : 0,
-      'categoryId': categoryId,
-      'description': description,
-      'isCompleted': isCompleted ? 1 : 0,
-      'createdTime': createdTime.toIso8601String(),
-    };
-  }
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "title": title,
+        "reminderTime": reminderTime.toIso8601String(),
+        "repeatOption": repeatOption.value,
+        "startTime": startTime != null
+            ? "${startTime!.hour}:${startTime!.minute}"
+            : null,
+        "endTime":
+            endTime != null ? "${endTime!.hour}:${endTime!.minute}" : null,
+        "isImportant": isImportant ? 1 : 0,
+        "categoryId": categoryId,
+        "description": description,
+        "isCompleted": isCompleted ? 1 : 0,
+        "createdTime": createdTime.toIso8601String(),
+      };
 
-  factory ToDo.fromMap(Map<String, dynamic> map) {
-    return ToDo(
-      id: map['id'],
-      title: map['title'],
-      reminderTime: DateTime.parse(map['reminderTime']),
-      repeatOption: RepeatOption(map['repeatOption']),
-      startTime:
-          map['startTime'] != null ? _parseTimeOfDay(map['startTime']) : null,
-      endTime: map['endTime'] != null ? _parseTimeOfDay(map['endTime']) : null,
-      isImportant: map['isImportant'] == 1,
-      categoryId: map['categoryId'],
-      description: map['description'],
-      isCompleted: map['isCompleted'] == 1,
-      createdTime: DateTime.parse(map['createdTime']),
-    );
-  }
+  factory ToDo.fromMap(final Map<String, dynamic> map) => ToDo(
+        id: map["id"],
+        title: map["title"],
+        reminderTime: DateTime.parse(map["reminderTime"]),
+        repeatOption: RepeatOption(map["repeatOption"]),
+        startTime:
+            map["startTime"] != null ? _parseTimeOfDay(map["startTime"]) : null,
+        endTime:
+            map["endTime"] != null ? _parseTimeOfDay(map["endTime"]) : null,
+        isImportant: map["isImportant"] == 1,
+        categoryId: map["categoryId"],
+        description: map["description"],
+        isCompleted: map["isCompleted"] == 1,
+        createdTime: DateTime.parse(map["createdTime"]),
+      );
 
-  static TimeOfDay _parseTimeOfDay(String timeString) {
-    final parts = timeString.split(':');
+  static TimeOfDay _parseTimeOfDay(final String timeString) {
+    final parts = timeString.split(":");
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
   }
 }

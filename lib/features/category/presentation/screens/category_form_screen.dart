@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:tick_tock/features/category/domain/category.dart';
-import 'package:tick_tock/features/category/presentation/widgets/category_form.dart';
+import "package:flutter/material.dart";
+import "package:tick_tock/features/category/domain/category.dart";
+import "package:tick_tock/features/category/presentation/widgets/category_form.dart";
 
 // Category form screen
 class CategoryFormScreen extends StatefulWidget {
@@ -13,14 +13,12 @@ class CategoryFormScreen extends StatefulWidget {
 
 class _CategoryFormScreenState extends State<CategoryFormScreen> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.category == null ? "Add Category" : "Edit Category",
+  Widget build(final BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.category == null ? "Add Category" : "Edit Category",
+          ),
         ),
-      ),
-      body: CategoryForm(category: widget.category),
-    );
-  }
+        body: CategoryForm(category: widget.category),
+      );
 }
