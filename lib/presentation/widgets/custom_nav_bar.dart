@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/types/navigator.dart";
+import "package:ticktock/core/types/navigator.dart";
 
 class CustomNavBar extends StatefulWidget {
   final int currentIndex;
