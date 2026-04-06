@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:ticktock/core/constants/path.dart";
+import "package:ticktock/features/more/presentation/widgets/app_logo.dart";
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({super.key});
@@ -14,13 +15,9 @@ class _MoreScreenState extends State<MoreScreen> {
         child: Scaffold(
           body: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: SizedBox(
-                  width: 96,
-                  height: 96,
-                  child: Image.asset("assets/logos/logo_b_256x256.png"),
-                ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: AppLogo(),
               ),
               Divider(color: Colors.grey.shade400, height: 4, thickness: 2),
               ListTile(
@@ -42,7 +39,7 @@ class _MoreScreenState extends State<MoreScreen> {
               ListTile(
                 leading: const Icon(Icons.info_outlined),
                 title: const Text("About"),
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, aboutPath),
               ),
               ListTile(
                 leading: const Icon(Icons.help_outline),
