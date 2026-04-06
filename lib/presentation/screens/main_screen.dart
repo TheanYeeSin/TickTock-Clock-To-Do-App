@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/database/database_service.dart";
-import "package:tick_tock/core/types/time.dart";
-import "package:tick_tock/core/utils/color.dart";
-import "package:tick_tock/features/category/presentation/screens/category_settings_screen.dart";
-import "package:tick_tock/features/to_do/domain/to_do.dart";
-import "package:tick_tock/features/to_do/presentation/widgets/to_do_item_tile.dart";
-import "package:tick_tock/presentation/widgets/clock/clock.dart";
+import "package:ticktock/core/database/database_service.dart";
+import "package:ticktock/core/types/time.dart";
+import "package:ticktock/core/utils/color.dart";
+import "package:ticktock/features/category/presentation/screens/category_settings_screen.dart";
+import "package:ticktock/features/to_do/domain/to_do.dart";
+import "package:ticktock/features/to_do/presentation/widgets/to_do_item_tile.dart";
+import "package:ticktock/presentation/widgets/clock/clock.dart";
 import "package:timer_builder/timer_builder.dart";
 
 class MainScreen extends StatefulWidget {

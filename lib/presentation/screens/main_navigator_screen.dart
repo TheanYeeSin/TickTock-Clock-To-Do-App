@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/constants/path.dart";
-import "package:tick_tock/core/types/navigator.dart";
-import "package:tick_tock/features/more/presentation/screens/more_screen.dart";
-import "package:tick_tock/presentation/screens/main_screen.dart";
-import "package:tick_tock/presentation/widgets/custom_nav_bar.dart";
+import "package:ticktock/core/constants/path.dart";
+import "package:ticktock/core/types/navigator.dart";
+import "package:ticktock/features/more/presentation/screens/more_screen.dart";
+import "package:ticktock/presentation/screens/main_screen.dart";
+import "package:ticktock/presentation/widgets/custom_nav_bar.dart";
 
 class MainNavigatorScreen extends StatefulWidget {
   const MainNavigatorScreen({super.key});

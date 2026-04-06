@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/types/time.dart";
-import "package:tick_tock/core/utils/color.dart";
-import "package:tick_tock/features/to_do/domain/to_do.dart";
-import "package:tick_tock/presentation/widgets/clock/clock_painter.dart";
+import "package:ticktock/core/types/time.dart";
+import "package:ticktock/core/utils/color.dart";
+import "package:ticktock/features/to_do/domain/to_do.dart";
+import "package:ticktock/presentation/widgets/clock/clock_painter.dart";
 
 class Clock extends StatefulWidget {
   final TimeModel time;

@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/theme/custom_themes/app_bar_theme.dart";
-import "package:tick_tock/core/theme/custom_themes/color_scheme.dart";
+import "package:ticktock/core/theme/custom_themes/app_bar_theme.dart";
+import "package:ticktock/core/theme/custom_themes/color_scheme.dart";
 
 class TAppTheme {
   TAppTheme._();

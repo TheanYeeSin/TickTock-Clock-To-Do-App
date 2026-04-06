@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/constants/path.dart";
-import "package:tick_tock/core/theme/theme.dart";
-import "package:tick_tock/features/category/presentation/screens/category_settings_screen.dart";
-import "package:tick_tock/presentation/screens/main_navigator_screen.dart";
+import "package:ticktock/core/constants/path.dart";
+import "package:ticktock/core/theme/theme.dart";
+import "package:ticktock/features/category/presentation/screens/category_settings_screen.dart";
+import "package:ticktock/presentation/screens/main_navigator_screen.dart";
 
 void main() {
   runApp(const MyApp());

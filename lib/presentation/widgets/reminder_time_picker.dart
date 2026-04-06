@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
-import "package:tick_tock/core/utils/pick_date_time.dart";
-import "package:tick_tock/features/to_do/domain/to_do.dart";
-import "package:tick_tock/presentation/widgets/custom_divider.dart";
+import "package:ticktock/core/utils/pick_date_time.dart";
+import "package:ticktock/features/to_do/domain/to_do.dart";
+import "package:ticktock/presentation/widgets/custom_divider.dart";
 
 class ReminderTimePicker extends StatelessWidget {
   final String labelText;

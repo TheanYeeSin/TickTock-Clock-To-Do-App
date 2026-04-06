@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/database/database_service.dart";
-import "package:tick_tock/core/utils/picker_item.dart";
-import "package:tick_tock/core/utils/validators/required_string.dart";
-import "package:tick_tock/features/category/domain/category.dart";
-import "package:tick_tock/presentation/widgets/custom_form_field.dart";
-import "package:tick_tock/presentation/widgets/custom_picker.dart";
+import "package:ticktock/core/database/database_service.dart";
+import "package:ticktock/core/utils/picker_item.dart";
+import "package:ticktock/core/utils/validators/required_string.dart";
+import "package:ticktock/features/category/domain/category.dart";
+import "package:ticktock/presentation/widgets/custom_form_field.dart";
+import "package:ticktock/presentation/widgets/custom_picker.dart";
 
 // Category Form
 class CategoryForm extends StatefulWidget {

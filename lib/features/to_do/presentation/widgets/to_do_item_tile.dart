@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:tick_tock/core/database/database_service.dart";
-import "package:tick_tock/core/utils/color.dart";
-import "package:tick_tock/features/to_do/domain/to_do.dart";
-import "package:tick_tock/features/to_do/presentation/screens/to_do_form_screen.dart";
+import "package:ticktock/core/database/database_service.dart";
+import "package:ticktock/core/utils/color.dart";
+import "package:ticktock/features/to_do/domain/to_do.dart";
+import "package:ticktock/features/to_do/presentation/screens/to_do_form_screen.dart";
 
 class ToDoTile extends StatefulWidget {
   final Color iconColor;
